@@ -1,0 +1,30 @@
+server {
+    listen 80;
+    server_name {{ sentry_nginx_server_name }};
+
+    proxy_redirect off;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # keepalive + raven.js = disaster
+    keepalive_timeout 0;
+
+    # Aggressive timeouts
+    proxy_read_timeout 5s;
+    proxy_send_timeout 5s;
+    send_timeout 5s;
+    resolver_timeout 5s;
+    client_body_timeout 5s;
+
+    # Buffer large messages
+    client_max_body_size 5m;
+    client_body_buffer_size 100k;
+
+    location / {
+        uwsgi_pass unix://{{ sentry_uwsgi_socket }}
+        include uwsgi_params;
+    }
+}
