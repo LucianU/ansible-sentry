@@ -1,0 +1,46 @@
+---
+- name: install required system packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items: sentry_system_packages
+  become: yes
+  become_user: root
+
+- name: create sentry user
+  user:
+    name: "{{ sentry_user }}"
+    state: present
+  become: yes
+  become_user: root
+
+- name: install sentry
+  pip:
+    name: sentry
+    version: "{{ sentry_version }}"
+    state: present
+    virtualenv: "{{ sentry_virtualenv }}"
+  become: yes
+  become_user: root
+
+- name: create the sentry config dir
+  file:
+    path: "{{ sentry_conf_dir }}"
+    state: directory
+  become: yes
+  become_user: root
+
+- name: install config
+  template:
+    src: "{{ sentry_conf }}"
+    dest: "{{ sentry_conf_dir }}/sentry.conf.py"
+  become: yes
+  become_user: root
+
+- name: create the db schema
+  command:
+    ./sentry --config="{{ sentry_conf_dir}}/sentry.conf.py" upgrade
+    chdir: "{{ sentry_virtualenv }}/bin"
+  become: yes
+  become_user: "{{ sentry_user }}"
