@@ -1,38 +1,36 @@
-Role Name
-=========
-
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+sentry
+======
+- Installs system requirements
+- Installs Sentry
+- Creates superuser
 
 Role Variables
 --------------
+| Variable | Description | Default value |
+|----------|-------------|---------------|
+|`sentry_conf`| Template for Sentry config file | `sentry.conf.py.j2` |
+|`sentry_conf_dir`| Dir where Sentry config is installed | `/etc/sentry` |
+|`sentry_socket`| Path to uWSGI socket serving the Sentry app | `/run/uwsgi/app/sentry/socket` |
+|`sentry_system_packages`| System packages required by Sentry | See below |
+|`sentry_user`| User running the Sentry app | `sentry` |
+|`sentry_virtualenv`| Virtual env used by Sentry | `{{ python_virtualenvs_dir }}/sentry` |
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`sentry_system_packages` values:
+- libffi-dev
+- libpq-dev
+- libssl-dev
+- libxslt1-dev
+- libxml2-dev
+- libyaml-dev
+- python-setuptools
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- [python](https://github.com/LucianU/ansible-python)
+- [postgres](https://github.com/LucianU/ansible-postgres)
+- [nginx](https://github.com/LucianU/ansible-nginx)
+- [uwsgi](https://github.com/LucianU/ansible-uwsgi)
 
 License
 -------
-
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
