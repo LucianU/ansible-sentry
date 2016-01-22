@@ -1,0 +1,14 @@
+---
+sentry_conf: sentry.conf.py.j2
+sentry_conf_dir: /etc/sentry
+sentry_socket: /run/uwsgi/app/sentry/socket
+sentry_system_packages:
+  - libffi-dev
+  - libpq-dev
+  - libssl-dev
+  - libxslt1-dev
+  - libxml2-dev
+  - libyaml-dev
+  - python-setuptools
+sentry_user: sentry
+sentry_virtualenv: "{{ python_virtualenvs_dir }}/sentry"
