@@ -24,7 +24,7 @@ server {
     client_body_buffer_size 100k;
 
     location / {
-        uwsgi_pass unix://{{ sentry_uwsgi_socket }}
+        uwsgi_pass unix://{{ sentry_uwsgi_socket }};
         include uwsgi_params;
     }
 }
