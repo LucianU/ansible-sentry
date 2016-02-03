@@ -31,9 +31,16 @@
   become: yes
   become_user: root
 
-- name: install config
+- name: install yaml config
   template:
-    src: "{{ sentry_conf }}"
+    src: "{{ sentry_yaml_conf }}"
+    dest: "{{ sentry_conf_dir }}/conf.yml"
+  become: yes
+  become_user: root
+
+- name: install python config
+  template:
+    src: "{{ sentry_py_conf }}"
     dest: "{{ sentry_conf_dir }}/sentry.conf.py"
   become: yes
   become_user: root

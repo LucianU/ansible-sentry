@@ -1,7 +1,7 @@
 ---
-sentry_conf: sentry.conf.py.j2
 sentry_conf_dir: /etc/sentry
-sentry_socket: /run/uwsgi/app/sentry/socket
+sentry_py_conf: sentry.conf.py.j2
+sentry_uwsgi_socket: "{{ uwsgi_socket }}"
 sentry_system_packages:
   - libffi-dev
   - libpq-dev
@@ -13,3 +13,4 @@ sentry_system_packages:
 sentry_user: sentry
 sentry_version: 8.1.1
 sentry_virtualenv: "{{ python_virtualenvs_dir }}/sentry"
+sentry_yaml_conf: config.yml.j2
