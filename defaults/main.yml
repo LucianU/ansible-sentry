@@ -1,4 +1,5 @@
 ---
+sentry_bootstrap_file: bootstrap.py
 sentry_conf_dir: /etc/sentry
 sentry_py_conf: sentry.conf.py.j2
 sentry_uwsgi_socket: "{{ uwsgi_socket }}"
