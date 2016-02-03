@@ -11,4 +11,5 @@ sentry_system_packages:
   - libyaml-dev
   - python-setuptools
 sentry_user: sentry
+sentry_version: 8.1.1
 sentry_virtualenv: "{{ python_virtualenvs_dir }}/sentry"
