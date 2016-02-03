@@ -39,8 +39,8 @@
   become_user: root
 
 - name: create the db schema
-  command:
-    ./sentry --config="{{ sentry_conf_dir}}/sentry.conf.py" upgrade
+  command: ./sentry --config="{{ sentry_conf_dir}}/sentry.conf.py" upgrade --noinput
+  args:
     chdir: "{{ sentry_virtualenv }}/bin"
   become: yes
   become_user: "{{ sentry_user }}"
