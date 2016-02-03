@@ -1,11 +1,11 @@
 [uwsgi]
 env = SENTRY_CONF={{ sentry_conf_dir }}
 module = sentry.wsgi
-ven = {{ sentry_virtualenv }}
+venv = {{ sentry_virtualenv }}
 uid = {{ sentry_user }}
 
 ; spawn the master and 4 processes with 8 threads each
-socket = {{ sentry_socket }}
+socket = {{ sentry_uwsgi_socket }}
 master = true
 processes = 4
 threads = 8
